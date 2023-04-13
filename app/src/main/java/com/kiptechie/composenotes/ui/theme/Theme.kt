@@ -20,3 +20,12 @@ private val DarkColorPalette = darkColors(
     surface = LightBlue,
     onSurface = DarkGray
 )
+@Composable
+fun ComposeNotesTheme(darkTheme: Boolean = false, content: @Composable() () -> Unit) {
+    MaterialTheme(
+        colors = if (darkTheme) DarkColorPalette else LightColorPalette,
+        typography = Typography,
+        shapes = Shapes,
+        content = content
+    )
+}
