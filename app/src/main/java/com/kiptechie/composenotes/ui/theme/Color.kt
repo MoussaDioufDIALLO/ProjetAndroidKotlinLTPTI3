@@ -1,5 +1,6 @@
 package com.kiptechie.composenotes.ui.theme
 
+import android.graphics.Color.rgb
 import androidx.compose.ui.graphics.Color
 
 val DarkGray = Color(0xFF202020)
@@ -12,4 +13,4 @@ val Violet = Color(0xffcf94da)
 val LightGreen = Color(0xffe7ed9b)
 val DarkBlue = Color(0xFF1E90FF)
 val Red =  Color(0xFFFF69B4)
-val Green = Color(0xFF00FF00)
+val Green = Color(rgb(0,100,0))

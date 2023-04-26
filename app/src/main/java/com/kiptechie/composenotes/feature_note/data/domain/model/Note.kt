@@ -15,7 +15,7 @@ data class Note(
 
 ) {
     companion object {
-        val noteColors = listOf(RedOrange, LightGreen, Violet, BabyBlue, RedPink)
+        val noteColors = listOf(RedOrange, LightGreen, Violet, BabyBlue, DarkBlue, Green)
         const val NOTE_COLOR_EXTRA = "noteColor"
         const val NOTE_ID_EXTRA = "noteId"
         const val NO_NOTE_OR_COLOR_ID = -1;
