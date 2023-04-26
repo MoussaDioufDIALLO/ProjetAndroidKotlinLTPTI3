@@ -1,8 +1,8 @@
-package com.kiptechie.composenotes.feature_note.data.repository
+package com.kiptechie.composenotes.feature_note.data.domain.repository
 
 import com.kiptechie.composenotes.feature_note.data.data_source.NoteDao
 import com.kiptechie.composenotes.feature_note.data.domain.model.Note
-import com.kiptechie.composenotes.feature_note.data.domain.repository.NoteRepository
+import com.kiptechie.composenotes.feature_note.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
 
 class NoteRepositoryImpl(

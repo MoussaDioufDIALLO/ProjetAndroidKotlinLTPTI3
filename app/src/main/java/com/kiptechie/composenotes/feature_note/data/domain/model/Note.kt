@@ -6,14 +6,12 @@ import com.kiptechie.composenotes.ui.theme.*
 
 @Entity
 data class Note(
-    val id: Int = 0,
     val title: String,
     val content: String,
     val timestamp: Long = System.currentTimeMillis(),
     val color: Int,
-    val imagePath: String,
-    @PrimaryKey (autoGenerate = true)
-    val primaryKey: Int = 0
+    @PrimaryKey val id: Int? = null
+
 
 ) {
     companion object {

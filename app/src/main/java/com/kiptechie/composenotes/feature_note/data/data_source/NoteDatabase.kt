@@ -10,7 +10,7 @@ import com.kiptechie.composenotes.feature_note.data.domain.model.Note
 )
 abstract class NoteDatabase : RoomDatabase() {
 
-    abstract fun noteDao(): NoteDao
+    abstract val noteDao: NoteDao
 
     companion object {
         const val DATABASE_NAME = "notes_db";

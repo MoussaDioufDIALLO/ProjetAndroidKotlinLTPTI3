@@ -2,7 +2,7 @@ package com.kiptechie.composenotes.feature_note.data.domain.use_case
 
 import com.kiptechie.composenotes.feature_note.data.domain.model.InvalidNoteException
 import com.kiptechie.composenotes.feature_note.data.domain.model.Note
-import com.kiptechie.composenotes.feature_note.data.domain.repository.NoteRepository
+import com.kiptechie.composenotes.feature_note.repository.NoteRepository
 
 class AddNote(
     private val repository: NoteRepository

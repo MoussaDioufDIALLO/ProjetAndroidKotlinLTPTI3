@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -22,9 +23,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.kiptechie.composenotes.feature_note.presentation.add_edit_note.AddEditNoteEvent
-import com.kiptechie.composenotes.feature_note.presentation.add_edit_note.AddEditNoteViewModel
-import com.plcoding.cleanarchitecturenoteapp.feature_note.domain.model.Note
+import com.kiptechie.composenotes.feature_note.data.domain.model.Note
 import com.kiptechie.composenotes.feature_note.presentation.add_edit_note.components.TransparentHintTextField
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -42,15 +41,15 @@ fun AddEditNoteScreen(
 
     val noteBackgroundAnimatable = remember {
         Animatable(
-            Color(if (noteColor != -1) noteColor else viewModel.noteColor.value)
+            Color(if (noteColor != Note.NO_NOTE_OR_COLOR_ID) noteColor else viewModel.noteColor.value)
         )
     }
     val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = true) {
         viewModel.eventFlow.collectLatest { event ->
-            when(event) {
-                is AddEditNoteViewModel.UiEvent.ShowSnackbar -> {
+            when (event) {
+                is AddEditNoteViewModel.UiEvent.ShowSnackBar -> {
                     scaffoldState.snackbarHostState.showSnackbar(
                         message = event.message
                     )

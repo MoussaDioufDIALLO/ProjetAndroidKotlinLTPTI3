@@ -6,9 +6,9 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kiptechie.cleanarchitecturenoteapp.feature_note.domain.model.InvalidNoteException
-import com.kiptechie.cleanarchitecturenoteapp.feature_note.domain.model.Note
-import com.kiptechie.cleanarchitecturenoteapp.feature_note.domain.use_case.NoteUseCases
+import com.kiptechie.composenotes.feature_note.data.domain.model.InvalidNoteException
+import com.kiptechie.composenotes.feature_note.data.domain.model.Note
+import com.kiptechie.composenotes.feature_note.data.domain.use_case.NoteUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -21,18 +21,10 @@ class AddEditNoteViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _noteTitle = mutableStateOf(
-        NoteTextFieldState(
-        hint = "Enter title..."
-    )
-    )
+    private val _noteTitle = mutableStateOf(NoteTextFieldState(hint = "Entrer le titre..."))
     val noteTitle: State<NoteTextFieldState> = _noteTitle
 
-    private val _noteContent = mutableStateOf(
-        NoteTextFieldState(
-        hint = "Enter some content"
-    )
-    )
+    private val _noteContent = mutableStateOf(NoteTextFieldState(hint = "Enter le contenu..."))
     val noteContent: State<NoteTextFieldState> = _noteContent
 
     private val _noteColor = mutableStateOf(Note.noteColors.random().toArgb())
@@ -41,11 +33,16 @@ class AddEditNoteViewModel @Inject constructor(
     private val _eventFlow = MutableSharedFlow<UiEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
+    sealed class UiEvent {
+        data class ShowSnackBar(val message: String) : UiEvent()
+        object SaveNote : UiEvent()
+    }
+
     private var currentNoteId: Int? = null
 
     init {
-        savedStateHandle.get<Int>("noteId")?.let { noteId ->
-            if(noteId != -1) {
+        savedStateHandle.get<Int>(Note.NOTE_ID_EXTRA)?.let { noteId ->
+            if (noteId != Note.NO_NOTE_OR_COLOR_ID) {
                 viewModelScope.launch {
                     noteUseCases.getNote(noteId)?.also { note ->
                         currentNoteId = note.id
@@ -65,7 +62,7 @@ class AddEditNoteViewModel @Inject constructor(
     }
 
     fun onEvent(event: AddEditNoteEvent) {
-        when(event) {
+        when (event) {
             is AddEditNoteEvent.EnteredTitle -> {
                 _noteTitle.value = noteTitle.value.copy(
                     text = event.value
@@ -104,20 +101,15 @@ class AddEditNoteViewModel @Inject constructor(
                             )
                         )
                         _eventFlow.emit(UiEvent.SaveNote)
-                    } catch(e: InvalidNoteException) {
+                    } catch (e: InvalidNoteException) {
                         _eventFlow.emit(
-                            UiEvent.ShowSnackbar(
-                                message = e.message ?: "Couldn't save note"
+                            UiEvent.ShowSnackBar(
+                                message = e.message ?: "Impossible d'enregistrer la note"
                             )
                         )
                     }
                 }
             }
         }
-    }
-
-    sealed class UiEvent {
-        data class ShowSnackbar(val message: String): UiEvent()
-        object SaveNote: UiEvent()
     }
 }

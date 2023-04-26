@@ -2,6 +2,7 @@ package com.kiptechie.composenotes.feature_note.presentation.notes
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
@@ -14,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -53,18 +55,7 @@ fun NotesScreen(
                         contentDescription = "Add note"
                     )
                 }
-                FloatingActionButton(
-                    onClick = {
-                        // Code pour l'enregistrement vocal
-                    },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    modifier = Modifier.padding(start = 16.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Mic,
-                        contentDescription = "Record voice"
-                    )
-                }
+
             }
         },
         scaffoldState = scaffoldState
@@ -126,7 +117,8 @@ fun NotesScreen(
                                     Screen.AddEditNotesScreen.route +
                                             "?${Note.NOTE_ID_EXTRA}=${note.id}&${Note.NOTE_COLOR_EXTRA}=${note.color}"
                                 )
-                            },
+                            }
+                            .border(2.dp, Color.Gray),
                         onDeleteClick = {
                             viewModel.onEvent(NotesEvent.DeleteNote(note))
                             scope.launch {

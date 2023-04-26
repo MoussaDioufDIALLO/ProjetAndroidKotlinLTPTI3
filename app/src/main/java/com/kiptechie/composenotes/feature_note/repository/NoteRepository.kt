@@ -1,4 +1,4 @@
-package com.kiptechie.composenotes.feature_note.data.domain.repository
+package com.kiptechie.composenotes.feature_note.repository
 
 import com.kiptechie.composenotes.feature_note.data.domain.model.Note
 import kotlinx.coroutines.flow.Flow

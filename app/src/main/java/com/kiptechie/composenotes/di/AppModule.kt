@@ -2,8 +2,10 @@ package com.kiptechie.composenotes.di
 
 import android.app.Application
 import androidx.room.Room
+import com.kiptechie.composenotes.feature_note.data.data_source.NoteDatabase
+import com.kiptechie.composenotes.feature_note.repository.NoteRepository
 import com.kiptechie.composenotes.feature_note.data.domain.use_case.*
-import com.kiptechie.composenotes.feature_note.data.repository.NoteRepositoryImpl
+import com.kiptechie.composenotes.feature_note.data.domain.repository.NoteRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,9 +39,7 @@ object AppModule {
             getNotes = GetNotes(repository = repository),
             deleteNote = DeleteNote(repository = repository),
             addNote = AddNote(repository = repository),
-            getNote = GetNote(repository = repository),
-            updateNote = updateNote(repository = repository),
-
-            )
+            getNote = GetNote(repository = repository)
+        )
     }
 }
