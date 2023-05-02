@@ -27,13 +27,17 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeNotesTheme {
                 Surface(
+                    //Création d'une surface colorée
                     color =  MaterialTheme.colors.secondary,
                 ) {
+                    //Création du NavController pour naviguer entre les différents écrans
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
+                        //L'écran de départ est l'écran des notes
                         startDestination = Screen.NotesScreen.route
                     ) {
+                        //Définiton des différentes destinations de navigation
                         composable(route = Screen.NotesScreen.route) {
                             NotesScreen(navController = navController)
                         }
@@ -55,6 +59,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         ) {
+                            //Récupération de la couleur de la note à modifier ou à ajouter depuis les arguments
                             val color = it.arguments?.getInt(Note.NOTE_COLOR_EXTRA)
                                 ?: Note.NO_NOTE_OR_COLOR_ID
                             AddEditNoteScreen(
